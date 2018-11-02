@@ -1,7 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Player/player.gd" type="Script" id=1]
-[ext_resource path="res://Player/thejumper/idl3.png" type="Texture" id=2]
+[ext_resource path="res://game_common_assets/Player/player.gd" type="Script" id=1]
+[ext_resource path="res://game_common_assets/Player/Assets_The_Jumper/idl3.png" type="Texture" id=2]
+
+
 
 [sub_resource type="RectangleShape2D" id=1]
 
