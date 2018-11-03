@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wlk4.png-5e6b560d5966431f2285a763ae86c5bc.stex"
+path="res://.import/wlk4.png-73151d870fb81dca36ed08346b6c3b6b.stex"
 
 [deps]
 
-source_file="res://Player/thejumper/wlk4.png"
-dest_files=[ "res://.import/wlk4.png-5e6b560d5966431f2285a763ae86c5bc.stex" ]
+source_file="res://common_assets/Player/Assets_The_Jumper/wlk4.png"
+dest_files=[ "res://.import/wlk4.png-73151d870fb81dca36ed08346b6c3b6b.stex" ]
 
 [params]
 
