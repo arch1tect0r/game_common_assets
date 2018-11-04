@@ -1,12 +1,68 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://common_assets/Player/player.gd" type="Script" id=1]
-[ext_resource path="res://common_assets/Player/Assets_The_Jumper/idl3.png" type="Texture" id=2]
+[ext_resource path="res://common_assets/Player/player_sprites.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
+
+[sub_resource type="Animation" id=2]
+
+resource_name = "idle"
+length = 7.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=3]
+
+resource_name = "jumping"
+length = 0.5
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 8, 9, 10, 8, 9, 10 ]
+}
+
+[sub_resource type="Animation" id=4]
+
+length = 0.5
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19, 20, 21 ]
+}
 
 [node name="Mark" type="KinematicBody2D"]
 
@@ -46,14 +102,18 @@ editor_draw_drag_margin = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
-position = Vector2( -0.244266, 2.61733 )
-scale = Vector2( 4.47475, 16.2796 )
+position = Vector2( -4.40216, 23.6113 )
+scale = Vector2( 3.47837, 14.3244 )
 shape = SubResource( 1 )
 
 [node name="sprite" type="Sprite" parent="." index="2"]
 
+position = Vector2( 1.39294, -3.46343 )
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Material", "Visibility" ]
+vframes = 7
+hframes = 8
+frame = 10
+_sections_unfolded = [ "Animation", "Material", "Offset", "Visibility" ]
 
 [node name="Smoke" type="Node2D" parent="sprite" index="0"]
 
@@ -71,6 +131,10 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
+anims/idle = SubResource( 2 )
+anims/jumping = SubResource( 3 )
+anims/run = SubResource( 4 )
 blend_times = [  ]
+_sections_unfolded = [ "Pause", "Playback Options" ]
 
 
