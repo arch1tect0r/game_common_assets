@@ -57,7 +57,7 @@ func _physics_process(delta):
 
 	# Shooting
 	if Input.is_action_just_pressed("shoot"):
-		var bullet = preload("res://bullet.tscn").instance()
+		var bullet = preload("res://common_assets/Player/bullets/bullet.tscn").instance()
 		bullet.position = $sprite/bullet_shoot.global_position #use node for shoot position
 		bullet.linear_velocity = Vector2(sprite.scale.x * BULLET_VELOCITY, 0)
 		bullet.add_collision_exception_with(self) # don't want player to collide with bullet

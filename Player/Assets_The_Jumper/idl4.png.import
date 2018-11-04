@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/idl4.png-245476a92855948623f682e1ea07740b.stex"
+path="res://.import/idl4.png-d36d931459abe40fec37786bd207ecc2.stex"
 
 [deps]
 
-source_file="res://Player/thejumper/idl4.png"
-dest_files=[ "res://.import/idl4.png-245476a92855948623f682e1ea07740b.stex" ]
+source_file="res://common_assets/Player/Assets_The_Jumper/idl4.png"
+dest_files=[ "res://.import/idl4.png-d36d931459abe40fec37786bd207ecc2.stex" ]
 
 [params]
 

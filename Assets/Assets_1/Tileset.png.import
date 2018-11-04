@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/idl2.png-02969f06c33e50f6432b314a7fba44c9.stex"
+path="res://.import/Tileset.png-e1a042a3a8f7cb878df0cf9f6ae39aa8.stex"
 
 [deps]
 
-source_file="res://common_assets/Player/Assets_The_Jumper/idl2.png"
-dest_files=[ "res://.import/idl2.png-02969f06c33e50f6432b314a7fba44c9.stex" ]
+source_file="res://common_assets/Assets/Assets_1/Tileset.png"
+dest_files=[ "res://.import/Tileset.png-e1a042a3a8f7cb878df0cf9f6ae39aa8.stex" ]
 
 [params]
 

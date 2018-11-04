@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tr.png-75839422d4d826b40967097514fcf07d.stex"
+path="res://.import/tr.png-76d75fcd486f2e2b00b4f89f8f4cd829.stex"
 
 [deps]
 
-source_file="res://Player/thejumper/tr.png"
-dest_files=[ "res://.import/tr.png-75839422d4d826b40967097514fcf07d.stex" ]
+source_file="res://common_assets/Player/Assets_The_Jumper/tr.png"
+dest_files=[ "res://.import/tr.png-76d75fcd486f2e2b00b4f89f8f4cd829.stex" ]
 
 [params]
 

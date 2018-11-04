@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rpgaur.png-a793075b2e20a83d729e7a030473340a.stex"
+path="res://.import/rpgaur.png-cb6e96de2af2b44dc8c985cbab2c6ecd.stex"
 
 [deps]
 
-source_file="res://Player/thejumper/rpgaur.png"
-dest_files=[ "res://.import/rpgaur.png-a793075b2e20a83d729e7a030473340a.stex" ]
+source_file="res://common_assets/Player/Assets_The_Jumper/rpgaur.png"
+dest_files=[ "res://.import/rpgaur.png-cb6e96de2af2b44dc8c985cbab2c6ecd.stex" ]
 
 [params]
 
