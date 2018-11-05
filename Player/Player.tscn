@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://common_assets/Player/player.gd" type="Script" id=1]
 [ext_resource path="res://common_assets/Player/player_sprites.png" type="Texture" id=2]
+[ext_resource path="res://common_assets/GUI/GUI.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -80,7 +81,7 @@ BULLET_VELOCITY = 1000
 anchor_mode = 1
 rotating = false
 current = true
-zoom = Vector2( 1, 1 )
+zoom = Vector2( 0.8, 0.8 )
 limit_left = -10000000
 limit_top = -10000000
 limit_right = 10000000
@@ -143,6 +144,13 @@ process_mode = 1
 wait_time = 0.1
 one_shot = true
 autostart = false
+
+[node name="GUI" parent="." index="5" instance=ExtResource( 3 )]
+
+margin_left = -171.0
+margin_top = -448.0
+margin_right = 177.0
+margin_bottom = -308.0
 
 [connection signal="timeout" from="shooting_speed" to="." method="_on_shooting_speed_timeout"]
 

@@ -8,7 +8,6 @@ const WALK_SPEED = 250 # pixels/sec
 const JUMP_SPEED = 480
 const SIDING_CHANGE_SPEED = 10
 export var BULLET_VELOCITY = 1000
-const SHOOT_TIME_SHOW_WEAPON = 0.2
 
 var linear_vel = Vector2()
 var onair_time = 0 #
@@ -106,16 +105,18 @@ func _physics_process(delta):
 
 		if linear_vel.y < 0:
 			new_anim = "jumping"
-		else:
-			new_anim = "falling"
+		#else:
+			#new_anim = "falling"
 
-	if shoot_time < SHOOT_TIME_SHOW_WEAPON:
-		new_anim += "_weapon"
+	#if shoot_time < cur_shooting_speed:
+		#new_anim += "_weapon"
 
 	if new_anim != anim:
 		anim = new_anim
 		$anim.play(anim)
 
+func hit_by_enemy():
+	$GUI.deacrease_hp()
 
 func _on_shooting_speed_timeout():
 	is_shoot_ready = true
