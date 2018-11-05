@@ -27,9 +27,10 @@ func _physics_process(delta):
 		var slide_count = get_slide_count()
 		if (slide_count > 0) :
 			var collider = get_slide_collision(0).collider
-			if collider.has_method("hit_by_enemy"):
-				collider.call("hit_by_enemy")
-				queue_free()
+			if collider != null :
+				if collider.has_method("hit_by_enemy"):
+					collider.call("hit_by_enemy")
+					queue_free()
 		
 		linear_velocity += GRAVITY_VEC * delta
 		linear_velocity.x = direction * WALK_SPEED

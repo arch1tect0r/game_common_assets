@@ -74,7 +74,7 @@ func _physics_process(delta):
 	linear_vel.x = lerp(linear_vel.x, target_speed, 0.1)
 
 	# Jumping
-	if on_floor and Input.is_action_just_pressed("ui_up"):
+	if on_floor and (Input.is_joy_button_pressed(0,JOY_BUTTON_1) || Input.is_action_just_pressed("ui_up")):
 		linear_vel.y = -JUMP_SPEED
 		#$sound_jump.play()
 		

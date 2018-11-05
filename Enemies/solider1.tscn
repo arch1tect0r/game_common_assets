@@ -27,7 +27,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[node name="solider1" type="KinematicBody2D" index="0"]
+[node name="solider1" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 1
@@ -74,7 +74,7 @@ collision_mask = 1
 [node name="detect_wall_left" type="RayCast2D" parent="." index="4"]
 
 visible = false
-position = Vector2( 15.0564, 0.716972 )
+position = Vector2( 40.5088, 0.358486 )
 rotation = 1.5708
 enabled = true
 exclude_parent = true
@@ -84,7 +84,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="detect_wall_right" type="RayCast2D" parent="." index="5"]
 
-position = Vector2( 12.9054, 1.43394 )
+position = Vector2( -12.547, 1.43394 )
 rotation = -1.5708
 enabled = true
 exclude_parent = true
