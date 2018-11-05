@@ -108,11 +108,11 @@ shape = SubResource( 1 )
 
 [node name="sprite" type="Sprite" parent="." index="2"]
 
+editor/display_folded = true
 position = Vector2( 1.39294, -3.46343 )
 texture = ExtResource( 2 )
 vframes = 7
 hframes = 8
-frame = 10
 _sections_unfolded = [ "Animation", "Material", "Offset", "Visibility" ]
 
 [node name="Smoke" type="Node2D" parent="sprite" index="0"]
@@ -136,5 +136,14 @@ anims/jumping = SubResource( 3 )
 anims/run = SubResource( 4 )
 blend_times = [  ]
 _sections_unfolded = [ "Pause", "Playback Options" ]
+
+[node name="shooting_speed" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 0.1
+one_shot = true
+autostart = false
+
+[connection signal="timeout" from="shooting_speed" to="." method="_on_shooting_speed_timeout"]
 
 

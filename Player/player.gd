@@ -14,20 +14,35 @@ var linear_vel = Vector2()
 var onair_time = 0 #
 var on_floor = false
 var shoot_time=99999 #time since last shot
+var cur_shooting_speed = 0.1
+var is_shoot_ready = true
 
 var anim=""
 
 #cache the sprite here for fast access (we will set scale to flip it often)
 onready var sprite = $sprite
 
+var current_weapon = 'bullet'
+
+func get_weapon(gun,shooting_speed):
+	print(gun + ' was got')
+	cur_shooting_speed = shooting_speed
+	$shooting_speed.wait_time = cur_shooting_speed
+	current_weapon = gun
+	pass
+
 func shot():
-		var bullet = preload("res://common_assets/Player/bullets/bullet.tscn").instance()
+	if (is_shoot_ready):
+		#var bullet = preload("res://common_assets/Player/bullets/bullet.tscn").instance()
+		var bullet = load("res://common_assets/Bullets/"+current_weapon+".tscn").instance()
 		bullet.position = $sprite/start_bullet_postion.global_position #use node for shoot position
 		bullet.linear_velocity = Vector2(sprite.scale.x * BULLET_VELOCITY, 0)
 		bullet.add_collision_exception_with(self) # don't want player to collide with bullet
 		get_parent().add_child(bullet) #don't want bullet to move with me, so add it as child of parent
 		#$sound_shoot.play()
 		shoot_time = 0
+		is_shoot_ready = false
+		$shooting_speed.start()
 
 func _physics_process(delta):
 	#increment counters
@@ -100,3 +115,7 @@ func _physics_process(delta):
 	if new_anim != anim:
 		anim = new_anim
 		$anim.play(anim)
+
+
+func _on_shooting_speed_timeout():
+	is_shoot_ready = true
