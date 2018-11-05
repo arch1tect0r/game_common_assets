@@ -64,7 +64,7 @@ tracks/0/keys = {
 "values": [ 16, 17, 18, 19, 20, 21 ]
 }
 
-[node name="Mark" type="KinematicBody2D"]
+[node name="Mark" type="KinematicBody2D" index="0"]
 
 position = Vector2( -0.501923, 1.25859 )
 scale = Vector2( 0.365387, 0.365387 )
@@ -120,9 +120,9 @@ _sections_unfolded = [ "Animation", "Material", "Offset", "Visibility" ]
 position = Vector2( 102.714, 19.1037 )
 scale = Vector2( 1.6475, 1.59699 )
 
-[node name="bullet_shoot" type="Node2D" parent="sprite" index="1"]
+[node name="start_bullet_postion" type="Node2D" parent="sprite" index="1"]
 
-position = Vector2( 21.134, -98.0972 )
+position = Vector2( 93.6245, -37.8956 )
 
 [node name="anim" type="AnimationPlayer" parent="." index="3"]
 

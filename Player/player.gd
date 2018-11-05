@@ -20,6 +20,15 @@ var anim=""
 #cache the sprite here for fast access (we will set scale to flip it often)
 onready var sprite = $sprite
 
+func shot():
+		var bullet = preload("res://common_assets/Player/bullets/bullet.tscn").instance()
+		bullet.position = $sprite/start_bullet_postion.global_position #use node for shoot position
+		bullet.linear_velocity = Vector2(sprite.scale.x * BULLET_VELOCITY, 0)
+		bullet.add_collision_exception_with(self) # don't want player to collide with bullet
+		get_parent().add_child(bullet) #don't want bullet to move with me, so add it as child of parent
+		#$sound_shoot.play()
+		shoot_time = 0
+
 func _physics_process(delta):
 	#increment counters
 
@@ -54,16 +63,10 @@ func _physics_process(delta):
 	if on_floor and Input.is_action_just_pressed("ui_up"):
 		linear_vel.y = -JUMP_SPEED
 		#$sound_jump.play()
-
+		
 	# Shooting
-	if Input.is_action_just_pressed("shoot"):
-		var bullet = preload("res://common_assets/Player/bullets/bullet.tscn").instance()
-		bullet.position = $sprite/bullet_shoot.global_position #use node for shoot position
-		bullet.linear_velocity = Vector2(sprite.scale.x * BULLET_VELOCITY, 0)
-		bullet.add_collision_exception_with(self) # don't want player to collide with bullet
-		get_parent().add_child(bullet) #don't want bullet to move with me, so add it as child of parent
-		#$sound_shoot.play()
-		shoot_time = 0
+	if Input.is_joy_button_pressed(0,JOY_BUTTON_0) || Input.is_key_pressed(KEY_SPACE): #Input.is_action_just_pressed("btn_spacebar"):
+		shot()
 
 	### ANIMATION ###
 
