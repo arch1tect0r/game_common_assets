@@ -22,6 +22,9 @@ var anim=""
 onready var sprite = $sprite
 
 var current_weapon = 'bullet'
+var current_jump_count = 2
+var jump_count = 0
+export var count_hearts = 3
 
 func get_weapon(gun,shooting_speed):
 	print(gun + ' was got')
@@ -74,8 +77,9 @@ func _physics_process(delta):
 	linear_vel.x = lerp(linear_vel.x, target_speed, 0.1)
 
 	# Jumping
-	if on_floor and Input.is_action_just_pressed("ui_up"):
+	if (on_floor || current_jump_count <= jump_count) and Input.is_action_just_pressed("ui_up"):
 		linear_vel.y = -JUMP_SPEED
+		current_jump_count += 1
 		#$sound_jump.play()
 		
 	# Shooting
@@ -94,6 +98,7 @@ func _physics_process(delta):
 		if linear_vel.x > SIDING_CHANGE_SPEED:
 			sprite.scale.x = 1
 			new_anim = "run"
+		current_jump_count = 0
 	else:
 		# We want the character to immediately change facing side when the player
 		# tries to change direction, during air control.
@@ -114,9 +119,20 @@ func _physics_process(delta):
 	if new_anim != anim:
 		anim = new_anim
 		$anim.play(anim)
+		
+onready var Menu = get_parent().get_parent().get_node("Menu")		
 
 func hit_by_enemy():
+	count_hearts-=1
+	if (count_hearts < 1) :
+		Menu.die(get_parent())
 	$GUI.deacrease_hp()
+	
+func get_map(map):
+	if (map == "map1") :
+		Menu.die(get_parent())
+		
 
 func _on_shooting_speed_timeout():
 	is_shoot_ready = true
+	
