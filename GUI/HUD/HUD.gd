@@ -3,7 +3,6 @@ extends MarginContainer
 var default_texture_path = "res://common_assets/Items/assets/"
 
 func _ready():	
-	get_parent().connect("player_hp_changed",self,"player_hp_changed")
 	$CanvasLayer/VBoxContainer/HBoxContainer2/current_weapon.texture = load(default_texture_path+"bullet.PNG")
 
 export var hp_count = 3

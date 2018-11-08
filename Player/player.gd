@@ -25,11 +25,14 @@ var anim=""
 
 #cache the sprite here for fast access (we will set scale to flip it often)
 onready var sprite = $sprite
+onready var dialog_open = preload("res://common_assets/GUI/offers/open.tscn")
+var current_dialog;
 
 var current_weapon = 'bullet'
 var current_jump_count = 2
 var jump_count = 0
 export var count_hearts = 3
+var is_dialog_open = false
 
 func _ready():
 	pass
@@ -85,7 +88,7 @@ func _physics_process(delta):
 	linear_vel.x = lerp(linear_vel.x, target_speed, 0.1)
 
 	# Jumping
-	if (on_floor || current_jump_count <= jump_count) and Input.is_action_just_pressed("ui_up"):
+	if (on_floor || current_jump_count <= jump_count) and (Input.is_action_just_pressed("ui_up") || Input.is_joy_button_pressed(0,JOY_BUTTON_3)):
 		linear_vel.y = -JUMP_SPEED
 		current_jump_count += 1
 		#$sound_jump.play()
@@ -93,6 +96,17 @@ func _physics_process(delta):
 	# Shooting
 	if Input.is_joy_button_pressed(0,JOY_BUTTON_0) || Input.is_key_pressed(KEY_SPACE): #Input.is_action_just_pressed("btn_spacebar"):
 		shot()
+		
+	if Input.is_joy_button_pressed(0,JOY_BUTTON_1) || Input.is_key_pressed(KEY_E):
+		if $forward_collision.is_colliding():
+			var collider = $forward_collision.get_collider()
+			if collider.get_parent() != null:
+				if collider.get_parent().has_method("open"):
+					if (collider.get_parent().opened == false):
+						collider.get_parent().call("open")
+						if (is_dialog_open):
+							is_dialog_open = false
+							current_dialog.queue_free()
 
 	### ANIMATION ###
 
@@ -128,8 +142,21 @@ func _physics_process(delta):
 		anim = new_anim
 		$anim.play(anim)
 		
-onready var Menu = get_parent().get_parent().get_node("Menu")		
-
+	if $forward_collision.is_colliding():
+		var collider = $forward_collision.get_collider()
+		if collider != null :
+			if collider.get_parent() != null:
+				if collider.get_parent().has_method("open"):
+					if (collider.get_parent().opened == false):
+						if (!is_dialog_open):
+							is_dialog_open = true
+							current_dialog = dialog_open.instance()
+							add_child(current_dialog)
+	else :
+		if (is_dialog_open):
+			is_dialog_open = false
+			current_dialog.queue_free()
+		
 func hit_by_enemy():
 	count_hearts-=1
 	emit_signal("player_hp_changed",count_hearts)

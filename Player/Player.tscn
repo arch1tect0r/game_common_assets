@@ -103,13 +103,12 @@ editor_draw_drag_margin = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
-position = Vector2( -4.40216, 23.6113 )
-scale = Vector2( 3.47837, 14.3244 )
+position = Vector2( -4.40216, -0.840181 )
+scale = Vector2( 3.47837, 16.2053 )
 shape = SubResource( 1 )
 
 [node name="sprite" type="Sprite" parent="." index="2"]
 
-editor/display_folded = true
 position = Vector2( 1.39294, -3.46343 )
 texture = ExtResource( 2 )
 vframes = 7
@@ -144,6 +143,17 @@ process_mode = 1
 wait_time = 0.1
 one_shot = true
 autostart = false
+
+[node name="forward_collision" type="RayCast2D" parent="." index="5"]
+
+position = Vector2( 37.8446, -2.8373 )
+rotation = -1.5708
+scale = Vector2( 1, 1.90433 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 50 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
 
 [connection signal="timeout" from="shooting_speed" to="." method="_on_shooting_speed_timeout"]
 
