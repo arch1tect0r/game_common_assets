@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://common_assets/Enemies/solider1.gd" type="Script" id=1]
-[ext_resource path="res://common_assets/Enemies/Soldier1/solider1.png" type="Texture" id=2]
+[ext_resource path="res://common_assets/Enemies/soldier1.gd" type="Script" id=1]
+[ext_resource path="res://common_assets/Enemies/Soldier1/soldier1.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -27,7 +27,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[node name="solider1" type="KinematicBody2D"]
+[node name="soldier1" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 1

@@ -13,4 +13,4 @@ func player_died(level):
 	self.visible = true
 
 func _on_StartButton_button_up():
-	emit_signal("open_level","Level1",self)
+	emit_signal("open_level", "Level1", self)
