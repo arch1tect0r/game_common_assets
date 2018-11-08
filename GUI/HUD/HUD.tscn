@@ -3,7 +3,7 @@
 [ext_resource path="res://common_assets/GUI/HUD/HUD.gd" type="Script" id=1]
 [ext_resource path="res://common_assets/GUI/HUD/HP Icon.png" type="Texture" id=2]
 
-[node name="GUI" type="MarginContainer" index="0"]
+[node name="HUD" type="MarginContainer"]
 
 anchor_left = 0.0
 anchor_top = 0.0

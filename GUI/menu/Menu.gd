@@ -3,7 +3,7 @@ extends MarginContainer
 signal open_level
 var current_level=1
 
-var level1 = preload("res://level1/Level1.tscn");
+var level1 = preload("res://level1/Level1.tscn")
 
 func _on_StartButton_pressed():
 	pass
