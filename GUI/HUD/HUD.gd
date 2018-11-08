@@ -1,16 +1,10 @@
 extends MarginContainer
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+var default_texture_path = "res://common_assets/Items/assets/"
 
 func _ready():	
 	get_parent().connect("player_hp_changed",self,"player_hp_changed")
-
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+	$CanvasLayer/VBoxContainer/HBoxContainer2/current_weapon.texture = load(default_texture_path+"bullet.PNG")
 
 export var hp_count = 3
 
@@ -36,3 +30,7 @@ func _on_Mark_player_hp_changed(hp):
 				$CanvasLayer/VBoxContainer/HBoxContainer/hp1.visible = false
 			hp_count-=1
 	hp_count = hp
+
+
+func _on_Mark_player_weapon_changed(new_weapon):
+	$CanvasLayer/VBoxContainer/HBoxContainer2/current_weapon.texture = load(default_texture_path+new_weapon+".PNG")

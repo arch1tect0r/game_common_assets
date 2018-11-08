@@ -11,5 +11,5 @@ export var shooting_speed = 0.5
 func _on_axe_body_entered(body):
 	if not taken:
 		if body.has_method("get_weapon"):
-			body.call("get_weapon",'axe',shooting_speed)
+			body.call("get_weapon",'Axe01',shooting_speed)
 			queue_free()

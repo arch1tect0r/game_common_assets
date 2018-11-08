@@ -3,6 +3,7 @@ extends KinematicBody2D
 signal player_died
 signal player_hp_changed
 signal player_win
+signal player_weapon_changed
 
 const GRAVITY_VEC = Vector2(0, 900)
 const FLOOR_NORMAL = Vector2(0, -1)
@@ -37,11 +38,11 @@ func get_weapon(gun,shooting_speed):
 	cur_shooting_speed = shooting_speed
 	$shooting_speed.wait_time = cur_shooting_speed
 	current_weapon = gun
+	emit_signal("player_weapon_changed",current_weapon)
 	pass
 
 func shot():
 	if (is_shoot_ready):
-		#var bullet = preload("res://common_assets/Player/bullets/bullet.tscn").instance()
 		var bullet = load("res://common_assets/Bullets/"+current_weapon+".tscn").instance()
 		bullet.position = $sprite/start_bullet_postion.global_position #use node for shoot position
 		bullet.linear_velocity = Vector2(sprite.scale.x * BULLET_VELOCITY, 0)
@@ -50,6 +51,7 @@ func shot():
 		#$sound_shoot.play()
 		shoot_time = 0
 		is_shoot_ready = false
+		emit_signal("player_weapon_changed",current_weapon)
 		$shooting_speed.start()
 
 func _physics_process(delta):

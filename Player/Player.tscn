@@ -64,7 +64,7 @@ tracks/0/keys = {
 "values": [ 16, 17, 18, 19, 20, 21 ]
 }
 
-[node name="Mark" type="KinematicBody2D" index="0"]
+[node name="Mark" type="KinematicBody2D"]
 
 position = Vector2( -0.501923, 1.25859 )
 scale = Vector2( 0.365387, 0.365387 )
