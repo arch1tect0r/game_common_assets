@@ -1,4 +1,4 @@
-extends MarginContainer
+extends Area2D
 
 # class member variables go here, for example:
 # var a = 2
@@ -14,14 +14,8 @@ func _ready():
 #	# Update game logic here.
 #	pass
 
-export var hp_count = 3
 
-func deacrease_hp():
-	if hp_count == 3 :
-		$HBoxContainer/hp3.visible = false
-	if hp_count == 2 :
-		$HBoxContainer/hp2.visible = false
-	if hp_count == 1 :
-		$HBoxContainer/hp1.visible = false
-	hp_count = hp_count - 1
-	
+func _on_map1_body_entered(body):
+	if body.has_method("get_map"):
+		body.call("get_map",'map1')
+		queue_free()
