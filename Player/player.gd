@@ -1,5 +1,9 @@
 extends KinematicBody2D
 
+signal player_died
+signal player_hp_changed
+signal player_win
+
 const GRAVITY_VEC = Vector2(0, 900)
 const FLOOR_NORMAL = Vector2(0, -1)
 const SLOPE_SLIDE_STOP = 25.0
@@ -26,8 +30,10 @@ var current_jump_count = 2
 var jump_count = 0
 export var count_hearts = 3
 
+func _ready():
+	pass
+
 func get_weapon(gun,shooting_speed):
-	print(gun + ' was got')
 	cur_shooting_speed = shooting_speed
 	$shooting_speed.wait_time = cur_shooting_speed
 	current_weapon = gun
@@ -124,13 +130,13 @@ onready var Menu = get_parent().get_parent().get_node("Menu")
 
 func hit_by_enemy():
 	count_hearts-=1
+	emit_signal("player_hp_changed",count_hearts)
 	if (count_hearts < 1) :
-		Menu.die(get_parent())
-	$GUI.deacrease_hp()
+		emit_signal("player_died")
 	
 func get_map(map):
 	if (map == "map1") :
-		Menu.die(get_parent())
+		emit_signal("player_win")
 		
 
 func _on_shooting_speed_timeout():

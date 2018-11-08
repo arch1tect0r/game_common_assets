@@ -4,10 +4,8 @@ extends MarginContainer
 # var a = 2
 # var b = "textvar"
 
-func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
-	pass
+func _ready():	
+	get_parent().connect("player_hp_changed",self,"player_hp_changed")
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
@@ -25,3 +23,16 @@ func deacrease_hp():
 		$HBoxContainer/hp1.visible = false
 	hp_count = hp_count - 1
 	
+
+func _on_Mark_player_hp_changed(hp):
+	if (hp < hp_count) :
+		var i = hp
+		while (i < hp_count) :
+			if i == 3 :
+				$CanvasLayer/VBoxContainer/HBoxContainer/hp3.visible = false
+			if i == 2 :
+				$CanvasLayer/VBoxContainer/HBoxContainer/hp2.visible = false
+			if i == 1 :
+				$CanvasLayer/VBoxContainer/HBoxContainer/hp1.visible = false
+			hp_count-=1
+	hp_count = hp
