@@ -1,15 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://common_assets/Bullets/Axe01.gd" type="Script" id=1]
 [ext_resource path="res://common_assets/Items/assets/Axe01.PNG" type="Texture" id=2]
 
-
-[sub_resource type="RectangleShape2D" id=1]
-
-custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
-
-[node name="axe" type="RigidBody2D"]
+[node name="axe" type="RigidBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
@@ -21,8 +15,8 @@ bounce = 0.0
 gravity_scale = 1.0
 custom_integrator = false
 continuous_cd = 0
-contacts_reported = 0
-contact_monitor = false
+contacts_reported = 1
+contact_monitor = true
 sleeping = false
 can_sleep = true
 linear_velocity = Vector2( 0, 0 )
@@ -42,18 +36,17 @@ wait_time = 0.1
 one_shot = false
 autostart = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
-
-position = Vector2( -0.0839287, -0.12281 )
-scale = Vector2( 1.23227, 1.22679 )
-shape = SubResource( 1 )
-
-[node name="life_time" type="Timer" parent="." index="2"]
+[node name="life_time" type="Timer" parent="." index="1"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = true
 autostart = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="2"]
+
+build_mode = 0
+polygon = PoolVector2Array( 1.73703, -7.3457, -0.205818, -2.77062, 7.94159, 5.37679, 9.88443, 5.5648, 9.63374, 6.63023, 11.3886, 9.13713, 14.3342, 9.1998, 14.1461, 10.6413, 11.0752, 13.5869, 9.44572, 13.5869, 9.44572, 11.8947, 7.44021, 9.1998, 5.74805, 9.45049, 5.74805, 7.63299, 2.05039, 4.12334, -0.895214, 5.1261, -5.53297, 5.31411, -12.8656, 2.74455, -13.743, 0.300325, -9.41865, 0.300325, -5.909, -3.08398, -6.47305, -5.40286, -5.59564, -6.90699, -3.46478, -6.46829, -2.83805, -5.34019, 1.04763, -7.78441 )
 
 [connection signal="body_entered" from="." to="." method="_on_axe_body_entered"]
 
