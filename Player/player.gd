@@ -162,6 +162,12 @@ func hit_by_enemy():
 	emit_signal("player_hp_changed",count_hearts)
 	if (count_hearts < 1) :
 		emit_signal("player_died")
+		
+func hit_by_bullet():
+	count_hearts-=1
+	emit_signal("player_hp_changed",count_hearts)
+	if (count_hearts < 1) :
+		emit_signal("player_died")
 	
 func get_map(map):
 	if (map == "map1") :
