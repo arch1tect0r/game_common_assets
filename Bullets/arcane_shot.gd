@@ -1,12 +1,21 @@
 extends RigidBody2D
 
-func _on_bullet_body_enter( body ):
+var angle = 0
+
+func _ready():
+	$anim.play("shot")
+
+func _on_life_time_timeout():
+	queue_free()
+
+func _on_timer_rotate_timeout():
+	angle += 0.2
+	$sprite.rotate(angle)
+
+func _on_arcane_shot_body_entered(body):
 	if body.has_method("hit_by_bullet"):
 		body.call("hit_by_bullet")
 	queue_free()
-
-func _on_Timer_timeout():
-	$anim.play("shutdown")
 	
 var current_scale = Vector2(1,1);	
 

@@ -3,7 +3,7 @@
 [ext_resource path="res://common_assets/Player/player.gd" type="Script" id=1]
 [ext_resource path="res://common_assets/Player/player_sprites.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 20.5575 )
@@ -64,7 +64,7 @@ tracks/0/keys = {
 "values": [ 16, 17, 18, 19, 20, 21 ]
 }
 
-[node name="Mark" type="KinematicBody2D" index="0"]
+[node name="Mark" type="KinematicBody2D"]
 
 position = Vector2( -0.501923, 1.25859 )
 scale = Vector2( 0.365387, 0.365387 )
@@ -73,6 +73,7 @@ collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
 BULLET_VELOCITY = 1000
 count_hearts = 3
 
@@ -81,7 +82,7 @@ count_hearts = 3
 anchor_mode = 1
 rotating = false
 current = true
-zoom = Vector2( 0.6, 0.6 )
+zoom = Vector2( 0.5, 0.5 )
 limit_left = -10000000
 limit_top = -10000000
 limit_right = 10000000
@@ -105,7 +106,7 @@ editor_draw_drag_margin = false
 
 position = Vector2( -4.40216, 3.18897 )
 scale = Vector2( 3.47837, 7.92467 )
-shape = SubResource( 5 )
+shape = SubResource( 1 )
 
 [node name="sprite" type="Sprite" parent="." index="2"]
 

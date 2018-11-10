@@ -129,6 +129,7 @@ _sections_unfolded = [ "Angular", "Collision", "Linear", "Material", "Pickable",
 
 [node name="Particles2D" type="Particles2D" parent="." index="0"]
 
+visible = false
 material = SubResource( 1 )
 emitting = true
 amount = 8

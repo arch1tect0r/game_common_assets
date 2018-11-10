@@ -16,3 +16,6 @@ func _on_life_time_timeout():
 func _on_axe_body_entered(body):
 	if body.has_method("hit_by_bullet"):
 		body.call("hit_by_bullet")
+	queue_free()
+	
+	

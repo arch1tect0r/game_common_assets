@@ -10,7 +10,7 @@ const FLOOR_NORMAL = Vector2(0, -1)
 const SLOPE_SLIDE_STOP = 25.0
 const MIN_ONAIR_TIME = 0.1
 const WALK_SPEED = 250 # pixels/sec
-const JUMP_SPEED = 480
+const JUMP_SPEED = 350
 const SIDING_CHANGE_SPEED = 10
 export var BULLET_VELOCITY = 1000
 
@@ -29,7 +29,7 @@ onready var dialog_open = preload("res://common_assets/GUI/offers/open.tscn")
 var current_dialog;
 
 var current_weapon = 'bullet'
-var current_jump_count = 2
+var current_jump_count = 1
 var jump_count = 0
 export var count_hearts = 3
 var is_dialog_open = false
@@ -48,6 +48,10 @@ func shot():
 	if (is_shoot_ready):
 		var bullet = load("res://common_assets/Bullets/"+current_weapon+".tscn").instance()
 		bullet.position = $sprite/start_bullet_postion.global_position #use node for shoot position
+		print(scale)
+		bullet._add_scale(scale)
+		bullet.set_scale(scale)
+		print("bullet: ", bullet.scale)
 		bullet.linear_velocity = Vector2(sprite.scale.x * BULLET_VELOCITY, 0)
 		bullet.add_collision_exception_with(self) # don't want player to collide with bullet
 		get_parent().add_child(bullet) #don't want bullet to move with me, so add it as child of parent
@@ -173,6 +177,8 @@ func get_map(map):
 	if (map == "map1") :
 		emit_signal("player_win")
 		
+func instant_die():
+	emit_signal("player_died")	
 
 func _on_shooting_speed_timeout():
 	is_shoot_ready = true

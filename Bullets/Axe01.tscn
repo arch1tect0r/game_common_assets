@@ -3,7 +3,7 @@
 [ext_resource path="res://common_assets/Bullets/Axe01.gd" type="Script" id=1]
 [ext_resource path="res://common_assets/Items/assets/Axe01.PNG" type="Texture" id=2]
 
-[node name="axe" type="RigidBody2D" index="0"]
+[node name="axe" type="RigidBody2D"]
 
 input_pickable = false
 collision_layer = 1
