@@ -18,7 +18,7 @@ radius = 10.0
 
 resource_name = "shot"
 length = 0.7
-loop = false
+loop = true
 step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -37,20 +37,13 @@ tracks/1/path = NodePath("collision:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = false
+tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1.11892, 1.0805 ) ]
+"values": [ Vector2( 0.867603, 0.862914 ), Vector2( 0.935352, 0.930296 ), Vector2( 1.01439, 1.00891 ), Vector2( 1.08944, 1.08356 ), Vector2( 1.26463, 1.2578 ), Vector2( 1.49046, 1.4824 ), Vector2( 1.61466, 1.60594 ) ]
 }
-tracks/2/type = "transform"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = false
-tracks/2/keys = PoolRealArray(  )
 
 [node name="arcane_shot" type="RigidBody2D"]
 
@@ -80,20 +73,20 @@ _sections_unfolded = [ "Angular", "Collision", "Linear", "Material", "Pickable",
 material = SubResource( 1 )
 texture = ExtResource( 2 )
 hframes = 7
-frame = 6
+frame = 4
 _sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform", "Visibility", "Z" ]
 
 [node name="collision" type="CollisionShape2D" parent="." index="1"]
 
-position = Vector2( -0.0362847, -0.490696 )
-scale = Vector2( 0.995209, 0.98983 )
+position = Vector2( -4.8997, -0.244391 )
+scale = Vector2( 1.45727, 1.4494 )
 shape = SubResource( 2 )
 _sections_unfolded = [ "Material", "Transform", "Visibility", "Z" ]
 
 [node name="life_time" type="Timer" parent="." index="2"]
 
 process_mode = 1
-wait_time = 1.0
+wait_time = 2.5
 one_shot = true
 autostart = true
 
@@ -110,7 +103,7 @@ blend_times = [  ]
 [node name="timer_rotate" type="Timer" parent="." index="4"]
 
 process_mode = 1
-wait_time = 0.1
+wait_time = 0.01
 one_shot = false
 autostart = true
 

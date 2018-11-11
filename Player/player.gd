@@ -5,32 +5,36 @@ signal player_hp_changed
 signal player_win
 signal player_weapon_changed
 
+onready var sprite = $sprite
+onready var camera = $camera
+onready var dialog_open = preload("res://common_assets/GUI/offers/open.tscn")
+
+
 const GRAVITY_VEC = Vector2(0, 900)
 const FLOOR_NORMAL = Vector2(0, -1)
-const SLOPE_SLIDE_STOP = 25.0
+const SLOPE_SLIDE_STOP = 15.0
 const MIN_ONAIR_TIME = 0.1
-const WALK_SPEED = 250 # pixels/sec
-const JUMP_SPEED = 350
+const WALK_SPEED = 150 # pixels/sec
+const JUMP_SPEED = 250
 const SIDING_CHANGE_SPEED = 10
-export var BULLET_VELOCITY = 1000
+const CAMERA_RETURNING_SPEED = 0.3
+const CAMERA_MAX_OFFSET = 25
+var BULLET_VELOCITY = 300
 
 var linear_vel = Vector2()
 var onair_time = 0 #
 var on_floor = false
-var shoot_time=99999 #time since last shot
-var cur_shooting_speed = 0.1
+var cur_shooting_speed = 0.5
 var is_shoot_ready = true
+var shoot_time = 0
 
 var anim=""
 
-#cache the sprite here for fast access (we will set scale to flip it often)
-onready var sprite = $sprite
-onready var dialog_open = preload("res://common_assets/GUI/offers/open.tscn")
 var current_dialog;
 
 var current_weapon = 'bullet'
-var current_jump_count = 1
-var jump_count = 0
+var current_jump_count = 0
+var jump_count = 2
 export var count_hearts = 3
 var is_dialog_open = false
 
@@ -39,38 +43,71 @@ func _ready():
 
 func get_weapon(gun,shooting_speed):
 	cur_shooting_speed = shooting_speed
-	$shooting_speed.wait_time = cur_shooting_speed
 	current_weapon = gun
 	emit_signal("player_weapon_changed",current_weapon)
 	pass
 
 func shot():
 	if (is_shoot_ready):
-		var bullet = load("res://common_assets/Bullets/"+current_weapon+".tscn").instance()
-		bullet.position = $sprite/start_bullet_postion.global_position #use node for shoot position
-		print(scale)
-		bullet._add_scale(scale)
-		bullet.set_scale(scale)
-		print("bullet: ", bullet.scale)
-		bullet.linear_velocity = Vector2(sprite.scale.x * BULLET_VELOCITY, 0)
-		bullet.add_collision_exception_with(self) # don't want player to collide with bullet
-		get_parent().add_child(bullet) #don't want bullet to move with me, so add it as child of parent
-		#$sound_shoot.play()
-		shoot_time = 0
 		is_shoot_ready = false
+		var bullet = load("res://common_assets/Bullets/"+current_weapon+".tscn").instance()
+		bullet.position = $sprite/start_bullet_postion.global_position 
+		bullet._add_scale(sprite.scale)
+		bullet.linear_velocity = Vector2(sprite.scale.x * BULLET_VELOCITY, 0)
+		bullet.add_collision_exception_with(self) 
+		get_parent().add_child(bullet) 
 		emit_signal("player_weapon_changed",current_weapon)
-		$shooting_speed.start()
+		shoot_time = 0
+		
+func hit_by_hand_weapon():
+	if (is_shoot_ready):
+		is_shoot_ready = false
+		var weapon = load("res://common_assets/oneHandWeapon/Axe.tscn").instance()
+		$sprite/hand_weapon_attack_point.scale.x = $sprite.scale.x
+		weapon.position = $sprite/hand_weapon_attack_point.position 
+		
+		#weapon._add_scale = Vector2(sprite.scale.x,1)
+		weapon.add_collision_exception_with(self) 
+		self.add_child(weapon) 
+		weapon.start_animation()
+		shoot_time = 0
+			
+func _process_camera():
+	#Input.get_joy_axis might be between -1..1
+	var new_camera_offset_x = Input.get_joy_axis(0,JOY_AXIS_2)*2 + camera.offset.x
+	var new_camera_offset_y = Input.get_joy_axis(0,JOY_AXIS_3)*2 + camera.offset.y
+	
+	if (new_camera_offset_x > 0):
+		new_camera_offset_x -=CAMERA_RETURNING_SPEED
+	if (new_camera_offset_x < 0):
+		new_camera_offset_x +=CAMERA_RETURNING_SPEED
+		
+	if (new_camera_offset_y > 0):
+		new_camera_offset_y -=CAMERA_RETURNING_SPEED
+	if (new_camera_offset_y < 0):
+		new_camera_offset_y +=CAMERA_RETURNING_SPEED	
+		
+	if ( new_camera_offset_x < CAMERA_MAX_OFFSET) and ( new_camera_offset_x > (-CAMERA_MAX_OFFSET)):
+		camera.offset.x = new_camera_offset_x
+	if ( new_camera_offset_y < CAMERA_MAX_OFFSET) and ( new_camera_offset_y > (-CAMERA_MAX_OFFSET)):
+		camera.offset.y = new_camera_offset_y	
 
 func _physics_process(delta):
+	_process_camera()
 	#increment counters
 
 	onair_time += delta
 	shoot_time += delta
+	
+	if (shoot_time > cur_shooting_speed):
+		shoot_time = 0
+		is_shoot_ready = true
 
 	### MOVEMENT ###
 
 	# Apply Gravity
 	linear_vel += delta * GRAVITY_VEC
+	
 	# Move and Slide
 	linear_vel = move_and_slide(linear_vel, FLOOR_NORMAL, SLOPE_SLIDE_STOP)
 	# Detect Floor
@@ -90,18 +127,19 @@ func _physics_process(delta):
 
 	target_speed *= WALK_SPEED
 	linear_vel.x = lerp(linear_vel.x, target_speed, 0.1)
-
-	# Jumping
-	if (on_floor || current_jump_count <= jump_count) and (Input.is_action_just_pressed("ui_up") || Input.is_joy_button_pressed(0,JOY_BUTTON_3)):
+	
+	if (on_floor || (current_jump_count <= jump_count)) and (Input.is_key_pressed(KEY_SPACE) || Input.is_joy_button_pressed(0,JOY_BUTTON_3)):
 		linear_vel.y = -JUMP_SPEED
 		current_jump_count += 1
-		#$sound_jump.play()
 		
 	# Shooting
-	if Input.is_joy_button_pressed(0,JOY_BUTTON_0) || Input.is_key_pressed(KEY_SPACE): #Input.is_action_just_pressed("btn_spacebar"):
+	if Input.is_joy_button_pressed(0,JOY_BUTTON_0) || Input.is_key_pressed(KEY_CONTROL): 
 		shot()
+	
+	if Input.is_joy_button_pressed(0,JOY_BUTTON_1): 
+		hit_by_hand_weapon()
 		
-	if Input.is_joy_button_pressed(0,JOY_BUTTON_1) || Input.is_key_pressed(KEY_E):
+	if Input.is_joy_button_pressed(0,JOY_BUTTON_6) || Input.is_key_pressed(KEY_E):
 		if $forward_collision.is_colliding():
 			var collider = $forward_collision.get_collider()
 			if collider.get_parent() != null:
@@ -126,9 +164,6 @@ func _physics_process(delta):
 			new_anim = "run"
 		current_jump_count = 0
 	else:
-		# We want the character to immediately change facing side when the player
-		# tries to change direction, during air control.
-		# This allows for example the player to shoot quickly left then right.
 		if Input.is_action_pressed("ui_left") and not Input.is_action_pressed("ui_right"):
 			sprite.scale.x = -1
 		if Input.is_action_pressed("ui_right") and not Input.is_action_pressed("ui_left"):
@@ -139,13 +174,12 @@ func _physics_process(delta):
 		#else:
 			#new_anim = "falling"
 
-	#if shoot_time < cur_shooting_speed:
-		#new_anim += "_weapon"
-
 	if new_anim != anim:
 		anim = new_anim
 		$anim.play(anim)
 		
+		
+	### DIALOGS ###
 	if $forward_collision.is_colliding():
 		var collider = $forward_collision.get_collider()
 		if collider != null :
@@ -180,6 +214,4 @@ func get_map(map):
 func instant_die():
 	emit_signal("player_died")	
 
-func _on_shooting_speed_timeout():
-	is_shoot_ready = true
 	

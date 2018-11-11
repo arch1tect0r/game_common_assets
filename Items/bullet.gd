@@ -12,3 +12,13 @@ func _on_bullet_body_entered(body):
 		if body.has_method("get_weapon"):
 			body.call("get_weapon",'bullet',0.1)
 			queue_free()
+
+var current_scale = Vector2(1,1);	
+
+func _add_scale(scale):
+	current_scale = scale
+	sprite.set_scale(current_scale)
+	
+func _integrate_forces(state):
+	sprite.set_scale(current_scale)
+	pass

@@ -7,6 +7,7 @@ func _ready():
 
 var taken=false
 export var shooting_speed = 0.5
+onready var sprite = $sprite
 
 func _on_axe_body_entered(body):
 	if not taken:

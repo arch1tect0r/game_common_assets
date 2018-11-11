@@ -21,7 +21,7 @@ func _on_player_find_timer_timeout():
 			var collider = item.get_collider()
 			if (collider != null):
 				try_shot(collider,item)
-		item.rotation_degrees += 2
+		item.rotation_degrees += 1
 		
 func shot(collider,item):
 	if (is_shoot_ready):

@@ -20,7 +20,7 @@ audio_bus_name = "Master"
 script = ExtResource( 1 )
 shooting_speed = 0.1
 
-[node name="Sprite" type="Sprite" parent="." index="0"]
+[node name="sprite" type="Sprite" parent="." index="0"]
 
 texture = ExtResource( 2 )
 
