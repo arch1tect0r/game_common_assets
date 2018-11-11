@@ -74,33 +74,33 @@ collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
-BULLET_VELOCITY = 1000
 count_hearts = 3
 
 [node name="camera" type="Camera2D" parent="." index="0"]
 
 anchor_mode = 1
-rotating = false
+rotating = true
 current = true
-zoom = Vector2( 0.5, 0.5 )
+zoom = Vector2( 0.3, 0.3 )
 limit_left = -10000000
 limit_top = -10000000
 limit_right = 10000000
 limit_bottom = 10000000
-limit_smoothed = false
+limit_smoothed = true
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
-smoothing_enabled = false
+smoothing_enabled = true
 smoothing_speed = 5.0
 offset_v = 0.0
 offset_h = 0.0
-drag_margin_left = 0.2
-drag_margin_top = 0.2
-drag_margin_right = 0.2
-drag_margin_bottom = 0.2
+drag_margin_left = 0.05
+drag_margin_top = 0.05
+drag_margin_right = 0.05
+drag_margin_bottom = 0.05
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
+_sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Smoothing", "Visibility" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
@@ -110,7 +110,6 @@ shape = SubResource( 1 )
 
 [node name="sprite" type="Sprite" parent="." index="2"]
 
-editor/display_folded = true
 position = Vector2( 1.39294, -3.46343 )
 texture = ExtResource( 2 )
 vframes = 7
@@ -126,6 +125,10 @@ scale = Vector2( 1.6475, 1.59699 )
 
 position = Vector2( 93.6245, -37.8956 )
 
+[node name="hand_weapon_attack_point" type="Node2D" parent="sprite" index="2"]
+
+position = Vector2( 121.398, 39.4999 )
+
 [node name="anim" type="AnimationPlayer" parent="." index="3"]
 
 root_node = NodePath("..")
@@ -139,14 +142,7 @@ anims/run = SubResource( 4 )
 blend_times = [  ]
 _sections_unfolded = [ "Pause", "Playback Options" ]
 
-[node name="shooting_speed" type="Timer" parent="." index="4"]
-
-process_mode = 1
-wait_time = 0.1
-one_shot = true
-autostart = false
-
-[node name="forward_collision" type="RayCast2D" parent="." index="5"]
+[node name="forward_collision" type="RayCast2D" parent="." index="4"]
 
 visible = false
 position = Vector2( 37.8446, -2.8373 )
@@ -158,6 +154,8 @@ cast_to = Vector2( 0, 50 )
 collision_mask = 1
 _sections_unfolded = [ "Transform" ]
 
-[connection signal="timeout" from="shooting_speed" to="." method="_on_shooting_speed_timeout"]
+[node name="start_bullet_postion" type="Node2D" parent="." index="5"]
+
+position = Vector2( 88.0892, -34.7018 )
 
 

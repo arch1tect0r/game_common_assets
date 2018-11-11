@@ -1,0 +1,76 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://common_assets/oneHandWeapon/Axe.gd" type="Script" id=1]
+[ext_resource path="res://common_assets/oneHandWeapon/assets/Axe01.PNG" type="Texture" id=2]
+
+[sub_resource type="Animation" id=1]
+
+resource_name = "attack"
+length = 2.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -45.0, -40.0, -35.0, -30.0, -25.0, -20.0, -15.0, -10.0, -5.0, 0.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0, 40.0, 45.0 ]
+}
+
+[node name="Axe" type="RigidBody2D"]
+
+rotation = 0.373998
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, 0 )
+linear_damp = -1.0
+angular_velocity = 0.0
+angular_damp = -1.0
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="sprite" type="Sprite" parent="." index="0"]
+
+scale = Vector2( -1, 1 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
+
+[node name="anim" type="AnimationPlayer" parent="." index="1"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 10.0
+anims/attack = SubResource( 1 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="collision" type="CollisionPolygon2D" parent="." index="2"]
+
+visible = false
+build_mode = 0
+polygon = PoolVector2Array( -13.9591, 8.81468, -11.8097, 8.81468, -10.3957, 7.62689, -10.3957, 4.45944, -7.79385, 4.45944, -0.553959, -2.55421, -2.19425, -6.4004, -2.08112, -8.6063, 0.52071, -8.32349, 2.72662, -6.51352, 4.64971, -7.81444, 7.53436, -5.15604, 6.68593, -3.17638, 9.57057, -0.23518, 14.6611, -0.00893307, 11.0412, 3.89382, 6.51624, 6.09972, 0.351025, 6.26941, -0.94989, 5.42099, -2.64674, 5.64723, -4.79608, 7.85314, -4.68296, 10.059, -7.34136, 10.3418, -8.7554, 11.6428, -9.03821, 14.5274, -11.131, 14.3012, -14.2984, 11.0206 )
+
+[connection signal="body_entered" from="." to="." method="_on_Axe_body_entered"]
+
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
+
+
