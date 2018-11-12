@@ -1,29 +1,35 @@
 extends RigidBody2D
 
-#func _on_Timer_timeout():
-#	$anim.play("shutdown")
+const ROTATE_DELAY = 0.3
+const LIFE_TIME = 2.0
 
-var angle = 0
-onready var sprite = $sprite
+onready var anim = $anim
 
-func _on_Timer_timeout():
-	angle += 0.2
-	#sprite.rotate(angle)
+var time = 0.0
+var general_time = 0.0
 
-func _on_life_time_timeout():
-	queue_free()
+func _ready():
+	anim.play("anim")
+	pass
+	
+func _physics_process(delta):
+	time += delta
+	general_time += delta
+	if (time > ROTATE_DELAY):
+		time = 0
+		#rotate(5)
+	if (general_time > LIFE_TIME):
+		queue_free()
 
 
-func _on_axe_body_entered(body):
+func _on_10_body_entered(body):
 	if body.has_method("hit_by_player"):
 		var hit_info = {}
 		hit_info.position = global_position
 		hit_info.hp = 1
 		body.call("hit_by_player",hit_info)
 		queue_free()
-	##
-	
-	
+		
 var current_scale = Vector2(1,1);	
 
 func _add_scale(scale):

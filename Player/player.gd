@@ -32,7 +32,7 @@ var anim=""
 
 var current_dialog;
 
-var current_weapon = 'bullet'
+var current_weapon = '10'
 var current_jump_count = 0
 var jump_count = 2
 export var count_hearts = 3
@@ -56,7 +56,6 @@ func shot():
 		bullet.linear_velocity = Vector2(sprite.scale.x * BULLET_VELOCITY, 0)
 		bullet.add_collision_exception_with(self) 
 		get_parent().add_child(bullet) 
-		emit_signal("player_weapon_changed",current_weapon)
 		shoot_time = 0
 		
 func hit_by_hand_weapon():
