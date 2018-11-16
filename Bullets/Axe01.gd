@@ -22,14 +22,14 @@ func _on_axe_body_entered(body):
 		body.call("hit_by_player",hit_info)
 		queue_free()
 	##
-	
-	
-var current_scale = Vector2(1,1);	
+
+
+var current_scale = Vector2(1,1);
 
 func _add_scale(scale):
 	current_scale = scale
 	set_scale(current_scale)
-	
+
 func _integrate_forces(state):
 	set_scale(current_scale)
 	pass

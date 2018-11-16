@@ -51,45 +51,45 @@ func shot():
 	if (is_shoot_ready):
 		is_shoot_ready = false
 		var bullet = load("res://common_assets/Bullets/"+current_weapon+".tscn").instance()
-		bullet.position = $sprite/start_bullet_postion.global_position 
+		bullet.position = $sprite/start_bullet_postion.global_position
 		bullet._add_scale(sprite.scale)
 		bullet.linear_velocity = Vector2(sprite.scale.x * BULLET_VELOCITY, 0)
-		bullet.add_collision_exception_with(self) 
-		get_parent().add_child(bullet) 
+		bullet.add_collision_exception_with(self)
+		get_parent().add_child(bullet)
 		shoot_time = 0
-		
+
 func hit_by_hand_weapon():
 	if (is_shoot_ready):
 		is_shoot_ready = false
 		var weapon = load("res://common_assets/oneHandWeapon/Axe.tscn").instance()
 		$sprite/hand_weapon_attack_point.scale.x = $sprite.scale.x
-		weapon.position = $sprite/hand_weapon_attack_point.position 
-		
+		weapon.position = $sprite/hand_weapon_attack_point.position
+
 		#weapon._add_scale = Vector2(sprite.scale.x,1)
-		weapon.add_collision_exception_with(self) 
-		self.add_child(weapon) 
+		weapon.add_collision_exception_with(self)
+		self.add_child(weapon)
 		weapon.start_animation()
 		shoot_time = 0
-			
+
 func _process_camera():
 	#Input.get_joy_axis might be between -1..1
 	var new_camera_offset_x = Input.get_joy_axis(0,JOY_AXIS_2)*2 + camera.offset.x
 	var new_camera_offset_y = Input.get_joy_axis(0,JOY_AXIS_3)*2 + camera.offset.y
-	
+
 	if (new_camera_offset_x > 0):
 		new_camera_offset_x -=CAMERA_RETURNING_SPEED
 	if (new_camera_offset_x < 0):
 		new_camera_offset_x +=CAMERA_RETURNING_SPEED
-		
+
 	if (new_camera_offset_y > 0):
 		new_camera_offset_y -=CAMERA_RETURNING_SPEED
 	if (new_camera_offset_y < 0):
-		new_camera_offset_y +=CAMERA_RETURNING_SPEED	
-		
+		new_camera_offset_y +=CAMERA_RETURNING_SPEED
+
 	if ( new_camera_offset_x < CAMERA_MAX_OFFSET) and ( new_camera_offset_x > (-CAMERA_MAX_OFFSET)):
 		camera.offset.x = new_camera_offset_x
 	if ( new_camera_offset_y < CAMERA_MAX_OFFSET) and ( new_camera_offset_y > (-CAMERA_MAX_OFFSET)):
-		camera.offset.y = new_camera_offset_y	
+		camera.offset.y = new_camera_offset_y
 
 func _physics_process(delta):
 	_process_camera()
@@ -97,7 +97,7 @@ func _physics_process(delta):
 
 	onair_time += delta
 	shoot_time += delta
-	
+
 	if (shoot_time > cur_shooting_speed):
 		shoot_time = 0
 		is_shoot_ready = true
@@ -106,7 +106,7 @@ func _physics_process(delta):
 
 	# Apply Gravity
 	linear_vel += delta * GRAVITY_VEC
-	
+
 	# Move and Slide
 	linear_vel = move_and_slide(linear_vel, FLOOR_NORMAL, SLOPE_SLIDE_STOP)
 	# Detect Floor
@@ -126,18 +126,18 @@ func _physics_process(delta):
 
 	target_speed *= WALK_SPEED
 	linear_vel.x = lerp(linear_vel.x, target_speed, 0.1)
-	
+
 	if (on_floor || (current_jump_count <= jump_count)) and (Input.is_key_pressed(KEY_SPACE) || Input.is_joy_button_pressed(0,JOY_BUTTON_3)):
 		linear_vel.y = -JUMP_SPEED
 		current_jump_count += 1
-		
+
 	# Shooting
-	if Input.is_joy_button_pressed(0,JOY_BUTTON_0) || Input.is_key_pressed(KEY_CONTROL): 
+	if Input.is_joy_button_pressed(0,JOY_BUTTON_0) || Input.is_key_pressed(KEY_CONTROL):
 		shot()
-	
-	if Input.is_joy_button_pressed(0,JOY_BUTTON_1): 
+
+	if Input.is_joy_button_pressed(0,JOY_BUTTON_1):
 		hit_by_hand_weapon()
-		
+
 	if Input.is_joy_button_pressed(0,JOY_BUTTON_6) || Input.is_key_pressed(KEY_E):
 		if $forward_collision.is_colliding():
 			var collider = $forward_collision.get_collider()
@@ -176,8 +176,8 @@ func _physics_process(delta):
 	if new_anim != anim:
 		anim = new_anim
 		$anim.play(anim)
-		
-		
+
+
 	### DIALOGS ###
 	if $forward_collision.is_colliding():
 		var collider = $forward_collision.get_collider()
@@ -193,24 +193,24 @@ func _physics_process(delta):
 		if (is_dialog_open):
 			is_dialog_open = false
 			current_dialog.queue_free()
-		
+
 func hit_by_enemy():
 	count_hearts-=1
 	emit_signal("player_hp_changed",count_hearts)
 	if (count_hearts < 1) :
 		emit_signal("player_died")
-		
+
 func hit_by_bullet():
 	count_hearts-=1
 	emit_signal("player_hp_changed",count_hearts)
 	if (count_hearts < 1) :
 		emit_signal("player_died")
-	
+
 func get_map(map):
 	if (map == "map1") :
 		emit_signal("player_win")
-		
-func instant_die():
-	emit_signal("player_died")	
 
-	
+func instant_die():
+	emit_signal("player_died")
+
+
