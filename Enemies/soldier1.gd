@@ -32,7 +32,7 @@ func _physics_process(delta):
 				if collider.has_method("hit_by_enemy"):
 					collider.call("hit_by_enemy")
 					queue_free()
-		
+
 		linear_velocity += GRAVITY_VEC * delta
 		linear_velocity.x = direction * WALK_SPEED
 		linear_velocity = move_and_slide(linear_velocity, FLOOR_NORMAL)
@@ -66,7 +66,7 @@ func hit_by_player(hit_info = null):
 	var direction_x = 1.0
 	if (global_position.x<hit_info.position.x):
 		direction_x = -1.0
-		
+
 	linear_velocity.x += direction_x * 100
 	if (hp_count <= 0):
 		queue_free()
