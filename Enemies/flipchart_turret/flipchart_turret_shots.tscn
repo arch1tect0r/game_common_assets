@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://common_assets/Enemies/flipchart_turret/flipchart_turret_shots.gd" type="Script" id=1]
+[ext_resource path="res://common_assets/Enemies/flipchart_turret/flipchart_turret.png" type="Texture" id=2]
+[ext_resource path="res://common_assets/Enemies/flipchart_turret/flipchart-turret-arrow.png" type="Texture" id=3]
+
+[node name="flipchart_turret_shots" type="StaticBody2D" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Material", "Pickable", "Transform", "Visibility", "Z Index" ]
+hp = 5
+detect_radius = 100
+fire_rate = 2
+
+[node name="sprite" type="Sprite" parent="." index="0"]
+
+scale = Vector2( 0.08, 0.08 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform", "Visibility", "Z Index" ]
+
+[node name="collision" type="CollisionPolygon2D" parent="." index="1"]
+
+build_mode = 0
+polygon = PoolVector2Array( 30.419, -42.5036, 30.4258, -39.9967, 31.7732, -38.5326, 31.8098, -36.7392, 31.6451, -36.4464, 30.419, -38.0568, 30.4187, 38.2004, 30.9128, 37.7246, 31.8095, 37.9076, 31.8461, 38.786, 31.4069, 39.335, 31.8095, 39.9205, 30.437, 41.293, 30.437, 42.9217, 28.7718, 42.9206, 27.6554, 44.3491, 25.0746, 44.2777, 26.3745, 42.8851, -25.2836, 42.8851, -23.8928, 43.8733, -23.8013, 44.2942, -26.3998, 44.3125, -28.1932, 42.8485, -30.8101, 42.8485, -30.8101, 40.6986, -31.3224, 40.2594, -31.7799, 39.747, -31.725, 39.1431, -31.5054, 38.9967, -31.8348, 38.832, -31.8897, 37.6242, -31.0662, 37.8255, -30.8101, 38.0634, -30.8649, -37.5078, -31.7799, -36.8307, -31.7799, -39.1731, -30.8101, -40.1796, -30.8101, -42.467, -28.9801, -42.467, -27.6076, -44.0957, -26.7658, -43.7663, -26.7109, -43.2905, -26.0887, -43.199, -25.9606, -42.4853, 26.2101, -42.5036, 25.716, -43.4186, 26.7774, -43.7114, 27.3812, -43.6382, 28.2415, -42.5201 )
+
+[node name="arrow" type="Sprite" parent="." index="2"]
+
+visible = false
+scale = Vector2( 0.03, -0.03 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="allow_arrow" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="visibility" type="Area2D" parent="." index="4"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="collision_visibility" type="CollisionShape2D" parent="visibility" index="0"]
+
+[connection signal="timeout" from="allow_arrow" to="." method="_on_allow_arrow_timeout"]
+
+[connection signal="body_entered" from="visibility" to="." method="_on_visibility_body_entered"]
+
+[connection signal="body_exited" from="visibility" to="." method="_on_visibility_body_exited"]
+
+

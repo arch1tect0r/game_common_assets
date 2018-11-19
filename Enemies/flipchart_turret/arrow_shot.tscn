@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://common_assets/Enemies/flipchart_turret/arrow_shot.gd" type="Script" id=1]
+[ext_resource path="res://common_assets/Enemies/flipchart_turret/flipchart-turret-arrow.png" type="Texture" id=2]
+
+[node name="arrow_shot" type="Area2D"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+_sections_unfolded = [ "Angular", "Applied Forces", "Collision", "Linear", "Pickable", "Transform", "Z Index" ]
+
+[node name="arrow" type="Sprite" parent="." index="0"]
+
+scale = Vector2( 0.03, -0.03 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
+
+[node name="collision" type="CollisionPolygon2D" parent="." index="1"]
+
+build_mode = 0
+polygon = PoolVector2Array( 0.245309, 18.0988, -0.233498, 18.0988, -0.21268, -12.0516, -2.3569, -9.8866, 0.0163145, -18.1512, 2.32708, -9.93865, 0.2349, -12.0516 )
+_sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
+
+[node name="life_time" type="Timer" parent="." index="2"]
+
+process_mode = 1
+wait_time = 20.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_arrow_shot_body_entered"]
+
+[connection signal="timeout" from="life_time" to="." method="_on_life_time_timeout"]
+
+
