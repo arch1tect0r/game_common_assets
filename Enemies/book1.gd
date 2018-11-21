@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 var BULLET_VELOCITY = 100
+const STOPPING_SPEED = 0.5
 
 onready var collision1 = $player_find_collision
 onready var collision2 = $player_find_collision2
@@ -16,6 +17,7 @@ onready var explosion = $explosion
 var angle = 0
 var is_shoot_ready = true
 var current_animation = "stop"
+var stop_time = 0.0
 
 export var hp_count = 3
 
@@ -62,6 +64,9 @@ func _ready():
 	explosion._add_scale(scale*0.5)
 	
 func _physics_process(delta):
+	stop_time += delta
+	if (stop_time > STOPPING_SPEED):
+		linear_velocity *= 0.5
 	linear_velocity = move_and_slide(linear_velocity, Vector2(0, -1))	
 
 func _on_shooting_speed_timeout():

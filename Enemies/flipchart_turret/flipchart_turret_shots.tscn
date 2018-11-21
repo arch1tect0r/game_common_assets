@@ -4,10 +4,10 @@
 [ext_resource path="res://common_assets/Enemies/flipchart_turret/flipchart_turret.png" type="Texture" id=2]
 [ext_resource path="res://common_assets/Enemies/flipchart_turret/flipchart-turret-arrow.png" type="Texture" id=3]
 
-[node name="flipchart_turret_shots" type="StaticBody2D" index="0"]
+[node name="flipchart_turret_shots" type="StaticBody2D"]
 
 input_pickable = false
-collision_layer = 1
+collision_layer = 2
 collision_mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0

@@ -9,7 +9,11 @@ var time = 0.0
 var general_time = 0.0
 
 func _ready():
-	anim.play("anim")
+	rotate(randi()%361 + 360)
+	if (randi()%2 == 0):
+		anim.play("anim")
+	else:
+		anim.play("anim2")		
 	pass
 	
 func _physics_process(delta):

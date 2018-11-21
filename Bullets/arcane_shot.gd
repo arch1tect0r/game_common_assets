@@ -15,7 +15,7 @@ func _on_timer_rotate_timeout():
 func _on_arcane_shot_body_entered(body):
 	if body.has_method("hit_by_bullet"):
 		body.call("hit_by_bullet")
-		queue_free()
+	queue_free()
 	
 var current_scale = Vector2(1,1);	
 

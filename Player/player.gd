@@ -18,7 +18,7 @@ const WALK_SPEED = 150 # pixels/sec
 const JUMP_SPEED = 250
 const SIDING_CHANGE_SPEED = 10
 const CAMERA_RETURNING_SPEED = 0.3
-const CAMERA_MAX_OFFSET = 25
+const CAMERA_MAX_OFFSET = 100
 var BULLET_VELOCITY = 300
 
 var linear_vel = Vector2()
@@ -51,10 +51,9 @@ func shot():
 	if (is_shoot_ready):
 		is_shoot_ready = false
 		var bullet = load("res://common_assets/Bullets/"+current_weapon+".tscn").instance()
-		bullet.position = $sprite/start_bullet_postion.global_position
-		bullet._add_scale(sprite.scale)
+		bullet.position = $sprite/start_bullet_postion.global_position 
+		bullet._add_scale(sprite.scale*0.5)
 		bullet.linear_velocity = Vector2(sprite.scale.x * BULLET_VELOCITY, 0)
-		bullet.add_collision_exception_with(self)
 		get_parent().add_child(bullet)
 		shoot_time = 0
 
@@ -123,6 +122,10 @@ func _physics_process(delta):
 		target_speed += -1
 	if Input.is_action_pressed("ui_right"):
 		target_speed +=  1
+	if Input.is_action_pressed("ui_down"):
+		target_speed = 0
+	if Input.is_joy_button_pressed(0,JOY_BUTTON_2) and on_floor:
+		target_speed += 4*sprite.scale.x
 
 	target_speed *= WALK_SPEED
 	linear_vel.x = lerp(linear_vel.x, target_speed, 0.1)
@@ -161,6 +164,13 @@ func _physics_process(delta):
 		if linear_vel.x > SIDING_CHANGE_SPEED:
 			sprite.scale.x = 1
 			new_anim = "run"
+					
+		if Input.is_action_pressed("ui_down"):
+			new_anim = "sit"
+			
+		if Input.is_joy_button_pressed(0,JOY_BUTTON_2) and on_floor:
+			new_anim = "slide"
+			
 		current_jump_count = 0
 	else:
 		if Input.is_action_pressed("ui_left") and not Input.is_action_pressed("ui_right"):
@@ -170,8 +180,8 @@ func _physics_process(delta):
 
 		if linear_vel.y < 0:
 			new_anim = "jumping"
-		#else:
-			#new_anim = "falling"
+		else:
+			new_anim = "falling"
 
 	if new_anim != anim:
 		anim = new_anim
