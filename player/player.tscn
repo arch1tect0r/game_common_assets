@@ -22,7 +22,7 @@ extents = Vector2( 24.7665, 40.8353 )
 
 [sub_resource type="Animation" id=2]
 
-length = 2.0
+length = 4.0
 loop = true
 step = 0.1
 tracks/0/type = "value"
@@ -80,10 +80,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 7.24595, 67.6174 ) ]
+"values": [ Vector2( 7.24595, 67.6174 ), Vector2( 15.7383, 70.2417 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("mark/hip_left/shin_left:rotation_degrees")
@@ -92,10 +92,10 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ 0.0, -24.1592 ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("mark/body/shoulder_left/arm_left/Position2D:position")
@@ -320,10 +320,10 @@ tracks/24/loop_wrap = true
 tracks/24/imported = false
 tracks/24/enabled = true
 tracks/24/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -8.678, 212.939 ) ]
+"values": [ Vector2( -8.678, 212.939 ), Vector2( -8.678, 212.939 ) ]
 }
 tracks/25/type = "value"
 tracks/25/path = NodePath("mark/hip_left:rotation_degrees")
@@ -332,10 +332,10 @@ tracks/25/loop_wrap = true
 tracks/25/imported = false
 tracks/25/enabled = true
 tracks/25/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ 0.0, 0.0 ]
 }
 tracks/26/type = "value"
 tracks/26/path = NodePath("mark/body/shoulder_right:position")
@@ -344,10 +344,10 @@ tracks/26/loop_wrap = true
 tracks/26/imported = false
 tracks/26/enabled = true
 tracks/26/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -66.1634, -3.87419 ) ]
+"values": [ Vector2( -66.1634, -3.87419 ), Vector2( -66.1634, -3.87419 ) ]
 }
 tracks/27/type = "value"
 tracks/27/path = NodePath("mark/body/shoulder_right:rotation_degrees")
@@ -356,10 +356,10 @@ tracks/27/loop_wrap = true
 tracks/27/imported = false
 tracks/27/enabled = true
 tracks/27/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ 0.0, -27.1575 ]
 }
 tracks/28/type = "value"
 tracks/28/path = NodePath("mark/body/shoulder_right/arm_right:position")
@@ -368,10 +368,10 @@ tracks/28/loop_wrap = true
 tracks/28/imported = false
 tracks/28/enabled = true
 tracks/28/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -47.9696, 78.3426 ) ]
+"values": [ Vector2( -47.9696, 78.3426 ), Vector2( -55.48, 84.7318 ) ]
 }
 tracks/29/type = "value"
 tracks/29/path = NodePath("mark/body/shoulder_right/arm_right:rotation_degrees")
@@ -380,10 +380,10 @@ tracks/29/loop_wrap = true
 tracks/29/imported = false
 tracks/29/enabled = true
 tracks/29/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ 0.0, 35.4058 ]
 }
 tracks/30/type = "value"
 tracks/30/path = NodePath("mark/body/shoulder_right/arm_right/Position2D:position")
@@ -882,8 +882,7 @@ collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 __meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
+"_edit_group_": true
 }
 
 [node name="mark" type="Sprite" parent="." index="0"]
@@ -904,7 +903,8 @@ __meta__ = {
 [node name="shin_left" type="Sprite" parent="mark/hip_left" index="0"]
 
 show_behind_parent = true
-position = Vector2( 7.24595, 67.6174 )
+position = Vector2( 7.53703, 67.7074 )
+rotation = -0.0144525
 texture = ExtResource( 3 )
 offset = Vector2( -2.51863, 24.9073 )
 _sections_unfolded = [ "Visibility" ]
@@ -1027,6 +1027,7 @@ __meta__ = {
 [node name="shoulder_right" type="Sprite" parent="mark/body" index="2"]
 
 position = Vector2( -66.1634, -3.87419 )
+rotation = -0.0243691
 texture = ExtResource( 12 )
 offset = Vector2( -25.0434, 39.7633 )
 _sections_unfolded = [ "Transform", "Visibility" ]
@@ -1036,7 +1037,8 @@ __meta__ = {
 
 [node name="arm_right" type="Sprite" parent="mark/body/shoulder_right" index="0"]
 
-position = Vector2( -47.9696, 78.3426 )
+position = Vector2( -48.3557, 78.6711 )
+rotation = 0.0317705
 texture = ExtResource( 13 )
 offset = Vector2( 16.3867, 59.5058 )
 _sections_unfolded = [ "Transform" ]
