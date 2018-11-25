@@ -6,6 +6,8 @@ signal player_win
 signal player_weapon_changed
 
 onready var sprite = $sprite
+onready var sprite_base_scale_x = $sprite.scale.x
+onready var sprite_mirr_scale_x = $sprite.scale.x * -1
 onready var camera = $camera
 onready var dialog_open = preload("res://common_assets/GUI/offers/open.tscn")
 
@@ -125,7 +127,7 @@ func _physics_process(delta):
 	if Input.is_action_pressed("ui_down"):
 		target_speed = 0
 	if Input.is_joy_button_pressed(0,JOY_BUTTON_2) and on_floor:
-		target_speed += 4*sprite.scale.x
+		target_speed += 4 * sprite_base_scale_x
 
 	target_speed *= WALK_SPEED
 	linear_vel.x = lerp(linear_vel.x, target_speed, 0.1)
@@ -158,11 +160,11 @@ func _physics_process(delta):
 
 	if on_floor:
 		if linear_vel.x < -SIDING_CHANGE_SPEED:
-			sprite.scale.x = -1
+			sprite.scale.x = sprite_mirr_scale_x
 			new_anim = "run"
 
 		if linear_vel.x > SIDING_CHANGE_SPEED:
-			sprite.scale.x = 1
+			sprite.scale.x = sprite_base_scale_x
 			new_anim = "run"
 
 		if Input.is_action_pressed("ui_down"):
@@ -174,9 +176,9 @@ func _physics_process(delta):
 		current_jump_count = 0
 	else:
 		if Input.is_action_pressed("ui_left") and not Input.is_action_pressed("ui_right"):
-			sprite.scale.x = -1
+			sprite.scale.x = sprite_mirr_scale_x
 		if Input.is_action_pressed("ui_right") and not Input.is_action_pressed("ui_left"):
-			sprite.scale.x = 1
+			sprite.scale.x = sprite_base_scale_x
 
 		if linear_vel.y < 0:
 			new_anim = "jumping"
@@ -222,5 +224,3 @@ func get_map(map):
 
 func instant_die():
 	emit_signal("player_died")
-
-
