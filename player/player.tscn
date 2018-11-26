@@ -20,7 +20,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 24.7665, 40.8353 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 
 resource_name = "falling"
 length = 2.0
@@ -435,7 +435,7 @@ tracks/33/keys = {
 "values": [ 0.0, 15.9389, 10.626, -7.3893 ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 
 length = 2.0
 loop = true
@@ -849,7 +849,7 @@ tracks/33/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 
 resource_name = "jumping"
 length = 2.0
@@ -1264,9 +1264,8 @@ tracks/33/keys = {
 "values": [ 0.0, -76.7629 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=5]
 
-resource_name = "run"
 length = 2.0
 loop = true
 step = 0.1
@@ -2617,7 +2616,6 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 10.4595, 171.287 )
-scale = Vector2( 1, 1 )
 texture = ExtResource( 8 )
 offset = Vector2( 0.95531, 29.7768 )
 _sections_unfolded = [ "Material", "Transform", "Visibility" ]
@@ -2640,7 +2638,6 @@ __meta__ = {
 [node name="boot_left" type="Sprite" parent="sprite/body/hip_left/shin_left" index="0"]
 
 position = Vector2( -4.90968, 100.704 )
-scale = Vector2( 1, 1 )
 texture = ExtResource( 10 )
 offset = Vector2( 33.7839, -37.742 )
 _sections_unfolded = [ "Transform" ]
@@ -2659,7 +2656,6 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( -60.8336, 172.228 )
-scale = Vector2( 1, 1 )
 texture = ExtResource( 11 )
 offset = Vector2( -6.95152, 23.7557 )
 _sections_unfolded = [ "Transform", "Visibility" ]
@@ -2682,7 +2678,6 @@ __meta__ = {
 [node name="boot_right" type="Sprite" parent="sprite/body/hip_right/shin_right" index="0"]
 
 position = Vector2( -9.04517, 92.384 )
-scale = Vector2( 1, 1 )
 texture = ExtResource( 13 )
 offset = Vector2( 37.1707, -32.2068 )
 _sections_unfolded = [ "Animation", "Transform", "Visibility" ]
@@ -2711,10 +2706,10 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/falling = SubResource( 4 )
-anims/idle = SubResource( 2 )
-anims/jumping = SubResource( 5 )
-anims/run = SubResource( 3 )
+anims/falling = SubResource( 2 )
+anims/idle = SubResource( 3 )
+anims/jumping = SubResource( 4 )
+anims/run = SubResource( 5 )
 anims/sit = SubResource( 6 )
 anims/slide = SubResource( 7 )
 blend_times = [  ]
@@ -2729,9 +2724,8 @@ _sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
 [node name="camera" type="Camera2D" parent="." index="4"]
 
-visible = false
 anchor_mode = 1
-rotating = true
+rotating = false
 current = true
 zoom = Vector2( 0.5, 0.5 )
 limit_left = -10000000
@@ -2741,7 +2735,7 @@ limit_bottom = 10000000
 limit_smoothed = true
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
-smoothing_enabled = false
+smoothing_enabled = true
 smoothing_speed = 5.0
 offset_v = 0.0
 offset_h = 0.0
@@ -2752,7 +2746,7 @@ drag_margin_bottom = 0.2
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-_sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Offset", "Smoothing" ]
+_sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Offset", "Smoothing", "Transform" ]
 
 [node name="forward_collision" type="RayCast2D" parent="." index="5"]
 
